@@ -1,61 +1,133 @@
-import { View, Button, StyleSheet, TextInput, Alert } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import api from '../api/api';
-import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
+import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
 
+const { width } = Dimensions.get('window')
 export default function LoginScreen({ navigation }) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const handleLogin = async () => {
-        /*        const response = await api.post('token/', {
-                    'username': username,
-                    'password': password
-                });
-                await AsyncStorage.setItem('access_token', response.data.access);
-                navigation.navigate('Home');*/
-        try {
-            const response = await fetch("http://localhost:8000/api/v1/users/");
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log(data); // Haz algo con los datos recibidos
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-
-
-    };
+    const SvgTop = () => {
+        return (
+            <Svg
+                width={500}
+                height={324}
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <Path
+                    d="M297.871 315.826c73.405 13.896 165.338-13.964 202.129-29.63V230H1.326v63.5c69.15-42.913 204.789 4.957 296.545 22.326z"
+                    fill="url(#prefix__paint0_linear_103:6)"
+                    fillOpacity={0.5}
+                />
+                <Path
+                    d="M237.716 308.627C110.226 338.066 30.987 318.618 0 304.77V0h500v304.77c-43.161-12.266-134.794-25.581-262.284 3.857z"
+                    fill="url(#prefix__paint1_linear_103:6)"
+                />
+                <Defs>
+                    <LinearGradient
+                        id="prefix__paint0_linear_103:6"
+                        x1={492.715}
+                        y1={231.205}
+                        x2={480.057}
+                        y2={364.215}
+                        gradientUnits="userSpaceOnUse"
+                    >
+                        <Stop stopColor="#FFFF" />
+                        <Stop offset={1} stopColor="#5066A7" />
+                    </LinearGradient>
+                    <LinearGradient
+                        id="prefix__paint1_linear_103:6"
+                        x1={7.304}
+                        y1={4.155}
+                        x2={144.016}
+                        y2={422.041}
+                        gradientUnits="userSpaceOnUse"
+                    >
+                        <Stop stopColor="#99b5f7" />
+                        <Stop offset={1} stopColor="#6b8fef" />
+                    </LinearGradient>
+                </Defs>
+            </Svg>
+        )
+    }
+    const logIn = () => {
+        navigation.navigate('Home')
+    }
     return (
-        <View style={styles.container}>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
-            <Button title="Login" onPress={handleLogin} />
+        <View style={styles.mainContainer}>
+            <View style={styles.containerSVG}>
+                <SvgTop />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.title}>Hello</Text>
+                <Text style={styles.subTitle}>Sign In to Your account</Text>
+                <TextInput
+                    placeholder="example@correo.com"
+                    style={styles.textInput}
+                />
+                <TextInput
+                    placeholder="password"
+                    style={styles.textInput}
+                />
+                <TouchableOpacity style={styles.button} onPress={logIn}>
+                    <Text style={styles.text}>SIGN </Text>
+                </TouchableOpacity>
+                <StatusBar style="auto" />
+            </View>
         </View>
-    )
+    );
 }
+
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
+        backgroundColor: '#f1f1f1',
         flex: 1,
+    },
+    container: {
+        alignItems: 'center',
         justifyContent: 'center',
-        padding: 16,
     },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingHorizontal: 8,
+    containerSVG: {
+        width: width,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
+    title: {
+        fontSize: 80,
+        color: '#34434D',
+        fontWeight: 'bold',
+    },
+    subTitle: {
+        fontSize: 20,
+        color: 'gray',
+    },
+    textInput: {
+        padding: 10,
+        paddingStart: 30,
+        width: '80%',
+        height: 50,
+        marginTop: 20,
+        borderRadius: 30,
+        backgroundColor: '#fff',
+    },
+    forgotPassword: {
+        fontSize: 14,
+        color: 'gray',
+        marginTop: 20
+    },
+    text: {
+        fontSize: 14,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    button: {
+        marginTop: 45,
+        width: '80%',
+        height: 50,
+        borderRadius: 25,
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#99b5f7"
+    },
+
 });

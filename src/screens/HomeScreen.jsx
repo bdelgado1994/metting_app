@@ -1,28 +1,19 @@
-import React, { useContext } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { AuthContext } from '../context/AuthContext';
+import { View, Text, StyleSheet } from 'react-native'
+import React from 'react'
 
-export default function HomeScreen({ navigation }) {
-    const { logout } = useContext(AuthContext);
-
+export default function HomeScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Home</Text>
-            <Button title="Logout" onPress={logout} />
+            <Text>HomeScreen</Text>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ffffff',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-});
+        justifyContent: 'center',
+        flexDirection: 'row'
+    }
+})
