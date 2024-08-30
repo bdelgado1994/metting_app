@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
-
+import axios from 'axios';
 const { width } = Dimensions.get('window')
 export default function LoginScreen({ navigation }) {
     const SvgTop = () => {
@@ -49,8 +49,20 @@ export default function LoginScreen({ navigation }) {
             </Svg>
         )
     }
+    // const [user, setUser] = useState([])
+    // useEffect(() => {
+    //     const getAllUser = async () => {
+    //         const request = await axios.get("http://192.168.1.109:8082/api/v1/users/");
+    //         const response = await request;
+    //         setUser(response.data);
+    //         console.log(user);
+    //     }
+    //     getAllUser();
+    // }, [])
+
+
     const logIn = () => {
-        navigation.navigate('Home')
+        navigation.navigate('Drawer')
     }
     return (
         <View style={styles.mainContainer}>
